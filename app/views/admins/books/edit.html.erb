@@ -1,0 +1,15 @@
+<h1>書籍編集</h1>
+<ul>
+	<% if @book.errors.any? %>
+		<% @book.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+	<% end %>
+</ul>
+<%= form_with model: [:admins, @book], local: true do |f| %>
+	<p><%= f.label :title, "Title" %></p>
+	<p><%= f.text_field :title %></p>
+	<p><%= f.label :stock, "Stock" %></p>
+	<p><%= f.text_field :stock %></p>
+	<p><%= f.submit %></p>
+<% end %>

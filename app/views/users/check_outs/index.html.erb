@@ -1,0 +1,5 @@
+<h1>貸出履歴</h1>
+<% @check_outs.each do |check_out| %>
+	<p><%= link_to check_out.created_at, check_out_path(check_out) %></p>
+<% end %>
+

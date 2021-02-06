@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BookManagementSystem</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <% if current_page?(new_admin_session_path) %>
+        <div class="wrapper site-header__wrapper">
+          <%= link_to "書籍管理システム", new_admin_session_path, class: "brand" %>
+          <nav class="nav">
+            <ul class="nav__wrapper">
+                <li class="nav__item">管理者用</li>
+            </ul>
+          </nav>
+        </div>
+      <% else %>
+        <div class="wrapper site-header__wrapper">
+          <% if user_signed_in? %>
+            <%= link_to "書籍管理システム", root_path, class: "brand" %>
+          <% else %>
+            <%= link_to "書籍管理システム", admins_books_path, class: "brand" %>
+          <% end %>
+          <nav class="nav">
+            <ul class="nav__wrapper">
+              <% if user_signed_in? %>
+                <li class="nav__item">ようこそ <%= current_user.name %> さん</li>
+                <li class="nav__item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+              <% elsif admin_signed_in? %>
+                <li class="nav__item"><%= link_to "書籍一覧", admins_books_path %></li>
+                <li class="nav__item"><%= link_to "書籍登録", new_admins_book_path %></li>
+                <li class="nav__item"><%= link_to "貸出中ユーザー", admins_check_outs_path %></li>
+                <li class="nav__item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+              <% else %>
+                <li class="nav__item"><%= link_to "ログイン", new_user_session_path %></li>
+              <% end %>
+            </ul>
+          </nav>
+        </div>
+      <% end %>
+    </header>
+    
+    <%= yield %>
+  </body>
+</html>

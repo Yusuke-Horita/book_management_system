@@ -1,0 +1,6 @@
+<h1>貸出履歴詳細</h1>
+<p><%= @check_out.created_at %></p>
+<% @check_out.check_out_books.each do |check_out_book| %>
+	<p><%= check_out_book.book.code %></p>
+	<p><%= check_out_book.book.title %></p>
+<% end %>

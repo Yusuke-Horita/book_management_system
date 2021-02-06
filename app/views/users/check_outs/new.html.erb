@@ -1,0 +1,14 @@
+<h1>貸出</h1>
+<%= form_with model: @cart_item do |f| %>
+	<p><%= f.text_field :code, place_holder: "Code" %></p>
+	<p><%= f.submit %></p>
+<% end %>
+
+<div id="cart-items">
+	<%= render 'cart-items' %>
+</div>
+
+<%= form_with model: @check_out, local: true do |f| %>
+	<p><%= f.text_field :return_date, place_holder: "Return_Date" %></p>
+	<p><%= f.submit %></p>
+<% end %>

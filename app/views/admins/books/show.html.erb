@@ -1,0 +1,14 @@
+<h1>書籍詳細</h1>
+<p><%= @book.code %></p>
+<p><%= @book.title %></p>
+
+<% if @stock < 1 %>
+	<p style="color: red;">在庫: <%= @stock %></p>
+<% elsif @stock == 1 %>
+	<p style="color: rgb(255, 174, 0);">在庫: <%= @stock %></p>
+<% else %>
+	<p>在庫: <%= @stock %></p>
+<% end %>
+
+<p>貸出数: <%= @number_on_loans %></p>
+<p>仕入数: <%= @book.stock %></p>

@@ -1,0 +1,4 @@
+<p><%= cart_item.book.code %></p>
+<p><%= cart_item.book.title %></p>
+<p><%= link_to "delete", cart_item_path(cart_item) ,method: :delete, remote: true %></p>
+<p>----------</p>

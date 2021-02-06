@@ -1,0 +1,8 @@
+<h1>返却画面</h1>
+<p>以下のものを返却しますか？</p>
+<% @check_out.check_out_books.each do |check_out_book| %>
+	<p><%= check_out_book.book.code %></p>
+	<p><%= check_out_book.book.title %></p>
+	<p>----------</p>
+<% end %>
+<p><%= link_to "返却", check_out_path(@check_out), method: :delete %></p>
