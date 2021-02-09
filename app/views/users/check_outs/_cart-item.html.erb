@@ -1,4 +1,11 @@
-<p><%= cart_item.book.code %></p>
-<p><%= cart_item.book.title %></p>
-<p><%= link_to "delete", cart_item_path(cart_item) ,method: :delete, remote: true %></p>
-<p>----------</p>
+<div class="main-content">
+	<div class="header">
+		<span><%= cart_item.book.code %></span>
+	</div>
+	<div class="body">
+		<span><%= cart_item.book.title %></span>
+	</div>
+</div>
+<div class="delete">
+	<%= link_to "削除", cart_item_path(cart_item) ,method: :delete, remote: true, class: "btn-square-so-pop btn-red" %>
+</div>

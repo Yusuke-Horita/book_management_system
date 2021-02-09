@@ -1,7 +1,8 @@
-<h1>トップページ</h1>
-<% if @user.status %>
-	<p><%= link_to "返却", check_outs_return_page_path %></p>
-<% else %>
-	<p><%= link_to "貸出", new_check_out_path %></p>
-<% end %>
-	<p><%= link_to "貸出履歴", check_outs_path %></p>
+<div class="top-page">
+	<% if @user.status %>
+		<%= link_to "返却", check_outs_return_page_path, class: "btn-square-so-pop btn-big btn-blue" %>
+	<% else %>
+		<%= link_to "貸出", new_check_out_path, class: "btn-square-so-pop btn-big btn-orange" %>
+	<% end %>
+	<%= link_to "貸出履歴", check_outs_path, class: "btn-square-so-pop btn-big btn-green" %>
+</div>

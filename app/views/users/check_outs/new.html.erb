@@ -1,14 +1,22 @@
-<h1>貸出</h1>
-<%= form_with model: @cart_item do |f| %>
-	<p><%= f.text_field :code, place_holder: "Code" %></p>
-	<p><%= f.submit %></p>
-<% end %>
-
-<div id="cart-items">
-	<%= render 'cart-items' %>
+<div class="new-check-out">
+	<h1>- 書籍コードを入力してください -</h1>
+	<div class="form">
+		<%= form_with model: @cart_item do |f| %>
+			<%= f.text_field :code, placeholder: "書籍コード" %>
+			<%= f.submit "追加", class: "btn-square-so-pop btn-gray" %>
+		<% end %>
+	</div>
+	<div id="cart-items">
+		<%= render 'cart-items' %>
+	</div>
+	
+	<h1>- 返却日を入力してください -</h1>
+	<div class="form">
+		<%= form_with model: @check_out, local: true do |f| %>
+			<%= f.date_field :return_date %>
+			<div class="check-out-submit">
+				<%= f.submit "貸出", class: "btn-square-so-pop btn-middle btn-orange" %>
+			</div>
+		<% end %>
+	</div>
 </div>
-
-<%= form_with model: @check_out, local: true do |f| %>
-	<p><%= f.text_field :return_date, place_holder: "Return_Date" %></p>
-	<p><%= f.submit %></p>
-<% end %>

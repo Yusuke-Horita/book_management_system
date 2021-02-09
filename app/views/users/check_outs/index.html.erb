@@ -1,5 +1,12 @@
-<h1>貸出履歴</h1>
-<% @check_outs.each do |check_out| %>
-	<p><%= link_to check_out.created_at, check_out_path(check_out) %></p>
+<div class="check-out-history">
+	<h1>- 貸出履歴 -</h1>
+	<% @check_outs.each do |check_out| %>
+	<section class="check-out-item">
+		<div class="main-content">
+			<div class="body">
+				<span><%= link_to check_out.created_at.to_s(:datetime_jp), check_out_path(check_out) %></span>
+			</div>
+		</div>
+	</section>
 <% end %>
-
+</div>

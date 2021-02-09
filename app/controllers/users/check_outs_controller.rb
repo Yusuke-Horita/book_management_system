@@ -2,7 +2,7 @@ class Users::CheckOutsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:show]
   def index
-    @check_outs = CheckOut.where(user_id: current_user.id, status: false)
+    @check_outs = CheckOut.where(user_id: current_user.id, status: false).order(created_at: :desc)
   end
 
   def new

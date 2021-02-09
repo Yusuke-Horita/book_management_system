@@ -1,8 +1,18 @@
-<h1>返却画面</h1>
-<p>以下のものを返却しますか？</p>
-<% @check_out.check_out_books.each do |check_out_book| %>
-	<p><%= check_out_book.book.code %></p>
-	<p><%= check_out_book.book.title %></p>
-	<p>----------</p>
-<% end %>
-<p><%= link_to "返却", check_out_path(@check_out), method: :delete %></p>
+<div class="return-page">
+	<h1>- 以下の書籍を返却しますか？ -</h1>
+	<% @check_out.check_out_books.each do |check_out_book| %>
+		<section class="return-item">
+			<div class="main-content">
+				<div class="header">
+					<span><%= check_out_book.book.code %></span>
+				</div>
+				<div class="body">
+					<span><%= check_out_book.book.title %></span>
+				</div>
+			</div>
+		</section>
+	<% end %>
+	<div class="return-submit">
+		<%= link_to "返却", check_out_path(@check_out), method: :delete, class: "btn-square-so-pop btn-middle btn-blue" %>
+	</div>
+</div>
