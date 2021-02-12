@@ -2,7 +2,7 @@
 	<h1>- 書籍コードを入力してください -</h1>
 	<div class="form">
 		<%= form_with model: @cart_item do |f| %>
-			<%= f.text_field :code, placeholder: "書籍コード" %>
+			<%= f.text_field :code, autofocus: true, placeholder: "書籍コード" %>
 			<%= f.submit "追加", class: "btn-square-so-pop btn-gray" %>
 		<% end %>
 	</div>

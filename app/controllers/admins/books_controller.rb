@@ -14,6 +14,7 @@ class Admins::BooksController < ApplicationController
     if !Book.exists?(code: code)
       if @book.save
         redirect_to admins_book_path(@book)
+        flash[:notice] = "書籍が登録されました"
       else
         render "new"
       end
@@ -37,6 +38,7 @@ class Admins::BooksController < ApplicationController
     @book = Book.find(params[:id])
     if @book.update(book_params)
       redirect_to admins_book_path(@book)
+      flash[:notice] = "書籍を編集しました"
     else
       render "edit"
     end
@@ -46,6 +48,7 @@ class Admins::BooksController < ApplicationController
     book = Book.find(params[:id])
     book.destroy
     redirect_to admins_books_path
+    flash[:notice] = "書籍を削除しました"
   end
 
   private

@@ -23,10 +23,10 @@
         </div>
       <% else %>
         <div class="wrapper site-header__wrapper">
-          <% if user_signed_in? %>
-            <%= link_to "書籍管理システム", root_path, class: "brand" %>
-          <% else %>
+          <% if admin_signed_in? %>
             <%= link_to "書籍管理システム", admins_books_path, class: "brand" %>
+          <% else %>
+            <%= link_to "書籍管理システム", root_path, class: "brand" %>
           <% end %>
           <nav class="nav">
             <ul class="nav__wrapper">
@@ -40,7 +40,7 @@
               <% elsif admin_signed_in? %>
                 <li class="nav__item"><%= link_to "書籍一覧", admins_books_path %></li>
                 <li class="nav__item"><%= link_to "書籍登録", new_admins_book_path %></li>
-                <li class="nav__item"><%= link_to "貸出中ユーザー", admins_check_outs_path %></li>
+                <li class="nav__item"><%= link_to "貸出履歴", admins_check_outs_path %></li>
                 <li class="nav__item">
                   <%= link_to destroy_admin_session_path, method: :delete, class: "btn-square-so-pop btn-gray" do %>
                     <i class="fas fa-sign-out-alt"></i> ログアウト
@@ -48,12 +48,18 @@
                 </li>
               <% else %>
                 <li class="nav__item"><%= link_to "ログイン", new_user_session_path %></li>
+                <li class="nav__item"><%= link_to "新規登録", new_user_registration_path %></li>
               <% end %>
             </ul>
           </nav>
         </div>
       <% end %>
     </header>
+    <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
     <div class="container">
       <%= yield %>
     </div>

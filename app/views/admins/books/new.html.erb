@@ -1,20 +1,30 @@
-<h1>書籍登録</h1>
-<ul>
-	<% if @exists_error %>
-		<li><%= @exists_error %></li>
-	<% end %>
-	<% if @book.errors.any? %>
-		<% @book.errors.full_messages.each do |message| %>
-			<li><%= message %></li>
-		<% end %>
-	<% end %>
-</ul>
-<%= form_with model: [:admins, @book], local: true do |f| %>
-	<p><%= f.label :code, "Code" %></p>
-	<p><%= f.text_field :code %></p>
-	<p><%= f.label :title, "Title" %></p>
-	<p><%= f.text_field :title %></p>
-	<p><%= f.label :stock, "Stock" %></p>
-	<p><%= f.text_field :stock %></p>
-	<p><%= f.submit %></p>
+<h1>- 書籍登録 -</h1>
+<% if @exists_error || @book.errors.any? %>
+	<div class="errors-section">
+		<ul>
+			<% if @exists_error %>
+				<li><%= @exists_error %></li>
+			<% end %>
+			<% if @book.errors.any? %>
+				<% @book.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+			<% end %>
+		</ul>
+	</div>
 <% end %>
+<div class="new-book">
+	<div class="form">
+		<%= form_with model: [:admins, @book], local: true do |f| %>
+			<p><%= f.label :code, "書籍コード" %></p>
+			<p><%= f.text_field :code, placeholder: "書籍コード" %></p>
+			<p><%= f.label :title, "Title" %></p>
+			<p><%= f.text_field :title, placeholder: "書籍タイトル" %></p>
+			<p><%= f.label :stock, "Stock" %></p>
+			<p><%= f.text_field :stock, placeholder: "在庫数" %></p>
+			<div class="new-book-submit">
+				<%= f.submit "登録", class: "btn-square-so-pop btn-gray" %>
+			</div>
+		<% end %>
+	</div>
+</div>

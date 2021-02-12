@@ -27,6 +27,7 @@ class Users::CheckOutsController < ApplicationController
       user.save
       cart_items.destroy_all
       redirect_to root_path
+      flash[:notice] = "貸出が完了しました"
     else
       render "new"
     end
@@ -48,6 +49,7 @@ class Users::CheckOutsController < ApplicationController
     check_out.update(status: false)
     check_out_books.update_all(status: false)
     redirect_to root_path
+    flash[:notice] = "返却が完了しました"
   end
 
   private

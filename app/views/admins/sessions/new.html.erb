@@ -3,7 +3,7 @@
 	<div class="form">
 		<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 			<p><%= f.label :email, "メールアドレス" %></p>
-			<p><%= f.email_field :email, autofocus: true, placeholder: "test@test" %></p>
+			<p><%= f.email_field :email, autofocus: true, placeholder: "admin@admin" %></p>
 			<p><%= f.label :password, "パスワード" %></p>
 			<p><%= f.password_field :password, placeholder: "password" %></p>
 			<div class="login-submit">

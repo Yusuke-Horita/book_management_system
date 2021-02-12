@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admins do
-    get 'check_outs/index'
-    get 'check_outs/show'
-    get 'check_outs/edit'
-  end
-  get 'check_outs/index'
-  get 'check_outs/show'
-  get 'check_outs/edit'
   devise_for :users
   devise_for :admins
 

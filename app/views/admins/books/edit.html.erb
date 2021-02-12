@@ -1,15 +1,23 @@
-<h1>書籍編集</h1>
-<ul>
-	<% if @book.errors.any? %>
-		<% @book.errors.full_messages.each do |message| %>
-			<li><%= message %></li>
-		<% end %>
-	<% end %>
-</ul>
-<%= form_with model: [:admins, @book], local: true do |f| %>
-	<p><%= f.label :title, "Title" %></p>
-	<p><%= f.text_field :title %></p>
-	<p><%= f.label :stock, "Stock" %></p>
-	<p><%= f.text_field :stock %></p>
-	<p><%= f.submit %></p>
+<h1>- 書籍編集 -</h1>
+<% if @book.errors.any? %>
+	<div class="errors-section">
+		<ul>
+			<% @book.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+		</ul>
+	</div>
 <% end %>
+<div class="edit-book">
+	<div class="form">
+		<%= form_with model: [:admins, @book], local: true do |f| %>
+			<p><%= f.label :title, "Title" %></p>
+			<p><%= f.text_field :title, placeholder: "書籍タイトル" %></p>
+			<p><%= f.label :stock, "Stock" %></p>
+			<p><%= f.text_field :stock, placeholder: "在庫数" %></p>
+			<div class="edit-book-submit">
+				<%= f.submit "確定", class: "btn-square-so-pop btn-gray" %>
+			</div>
+		<% end %>
+	</div>
+</div>

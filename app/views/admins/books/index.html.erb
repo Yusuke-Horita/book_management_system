@@ -1,19 +1,32 @@
-<h1>書籍一覧</h1>
-<% @books.each do |book| %>
-	<p><%= link_to book.code, admins_book_path(book) %></p>
-	<p><%= book.title %></p>
-
-	<% number_on_loans = CheckOutBook.where(book_id: book.id, status: true).size %>
-	<% stock = book.stock - number_on_loans %>
-	<% if stock < 1 %>
-		<p style="color: red;">在庫: <%= stock %></p>
-	<% elsif stock == 1 %>
-		<p style="color: rgb(255, 174, 0);">在庫: <%= stock %></p>
-	<% else %>
-		<p>在庫: <%= stock %></p>
+<div class="book-list">
+	<h1>- 書籍一覧 -</h1>
+	<% @books.each do |book| %>
+		<section class="book">
+			<div class="main-content">
+				<div class="header">
+					<span><%= link_to book.code, admins_book_path(book) %></span>
+				</div>
+				<div class="body">
+					<span><%= link_to book.title, admins_book_path(book) %></span>
+				</div>
+			</div>
+			<div class="stock">
+				<% number_on_loans = CheckOutBook.where(book_id: book.id, status: true).size %>
+				<% stock = book.stock - number_on_loans %>
+				<% if stock < 1 %>
+					<span style="color: red;">在庫: <%= stock %></span>
+				<% elsif stock == 1 %>
+					<span style="color: rgb(255, 174, 0);">在庫: <%= stock %></span>
+				<% else %>
+					<span>在庫: <%= stock %></span>
+				<% end %>
+			</div>
+			<div class="edit">
+				<%= link_to "編集", edit_admins_book_path(book), class: "btn-square-so-pop btn-orange" %>
+			</div>
+			<div class="delete">
+				<%= link_to "削除", admins_book_path(book), method: :delete, data: { confirm: "削除しますか?" }, class: "btn-square-so-pop btn-red" %>
+			</div>
+		</section>
 	<% end %>
-
-	<p><%= link_to "edit", edit_admins_book_path(book) %></p>
-	<p><%= link_to "delete", admins_book_path(book), method: :delete, data: { confirm: "Sure?" } %></p>
-	<p>----------</p>
-<% end %>
+</div>

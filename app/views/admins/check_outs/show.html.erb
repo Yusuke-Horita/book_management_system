@@ -1,9 +1,16 @@
-<h1>貸出中ユーザー詳細</h1>
-<p><%= @check_out.created_at %></p>
-<p><%= @check_out.user.name %></p>
-<h2>貸出書籍</h2>
-<% @check_out.check_out_books.each do |check_out_books| %>
-	<p><%= check_out_books.book.code %></p>
-	<p><%= check_out_books.book.title %></p>
-	<p>----------</p>
-<% end %>
+<div class="check-out">
+	<h1>- 貸出履歴詳細 -</h1>
+	<p><%= @check_out.created_at.to_s(:datetime_jp) %></p>
+	<% @check_out.check_out_books.each do |check_out_book| %>
+		<section class="check-out-book">
+			<div class="main-content">
+				<div class="header">
+					<span><%= link_to check_out_book.book.code, admins_book_path(check_out_book.book) %></span>
+				</div>
+				<div class="body">
+					<span><%= link_to check_out_book.book.title, admins_book_path(check_out_book.book) %></span>
+				</div>
+			</div>
+		</section>
+	<% end %>
+</div>

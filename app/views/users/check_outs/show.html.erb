@@ -1,6 +1,6 @@
 <div class="check-out">
 	<h1>- 貸出履歴詳細 -</h1>
-	<p><%= @check_out.created_at %></p>
+	<p><%= @check_out.created_at.to_s(:datetime_jp) %></p>
 	<% @check_out.check_out_books.each do |check_out_book| %>
 		<section class="check-out-book">
 			<div class="main-content">
