@@ -35,9 +35,9 @@ URL : http://54.150.193.101<br>
 https://docs.google.com/spreadsheets/d/1igCswqwDt0pDqMAgg5YrLvevIYwSixBYw8vJi1tMhnI/edit?usp=sharing
 
 ## 設計書
-- ER図
+- ER図<br>
 https://drive.google.com/file/d/1hoeo3lFCN4R7I0QlPNCXBG75QTLO-2Ao/view?usp=sharing
-- テーブル定義書
+- テーブル定義書<br>
 https://docs.google.com/spreadsheets/d/1aoSeN9kjP_j9BeBvizjVwKuQICMjP_FhVvrJyCT80Hw/edit?usp=sharing
 
 ## テスト仕様書
