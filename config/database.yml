@@ -49,6 +49,10 @@ test:
 #
 production:
   <<: *default
-  database: book_management_system_production
-  username: book_management_system
-  password: <%= ENV['BOOK_MANAGEMENT_SYSTEM_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DB_DATABASE'] %>
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
