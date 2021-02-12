@@ -18,9 +18,9 @@
 		<%= form_with model: [:admins, @book], local: true do |f| %>
 			<p><%= f.label :code, "書籍コード" %></p>
 			<p><%= f.text_field :code, placeholder: "書籍コード" %></p>
-			<p><%= f.label :title, "Title" %></p>
+			<p><%= f.label :title, "書籍タイトル" %></p>
 			<p><%= f.text_field :title, placeholder: "書籍タイトル" %></p>
-			<p><%= f.label :stock, "Stock" %></p>
+			<p><%= f.label :stock, "在庫数" %></p>
 			<p><%= f.text_field :stock, placeholder: "在庫数" %></p>
 			<div class="new-book-submit">
 				<%= f.submit "登録", class: "btn-square-so-pop btn-gray" %>

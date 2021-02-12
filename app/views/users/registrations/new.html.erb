@@ -9,8 +9,10 @@
 			<p><%= f.email_field :email, placeholder: "メールアドレス" %></p>
 			<p><%= f.label :password, "パスワード" %></p>
 			<p><%= f.password_field :password, placeholder: "パスワード" %></p>
+			<p><%= f.label :password_confirmation, "パスワード確認" %></p>
+			<p><%= f.password_field :password_confirmation, placeholder: "パスワード" %></p>
 			<div class="signup-submit">
-				<%= f.submit "ログイン", class: "btn-square-so-pop btn-gray" %>
+				<%= f.submit "登録", class: "btn-square-so-pop btn-gray" %>
 			</div>
 		<% end %>
 	</div>

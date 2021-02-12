@@ -11,9 +11,9 @@
 <div class="edit-book">
 	<div class="form">
 		<%= form_with model: [:admins, @book], local: true do |f| %>
-			<p><%= f.label :title, "Title" %></p>
+			<p><%= f.label :title, "書籍タイトル" %></p>
 			<p><%= f.text_field :title, placeholder: "書籍タイトル" %></p>
-			<p><%= f.label :stock, "Stock" %></p>
+			<p><%= f.label :stock, "在庫数" %></p>
 			<p><%= f.text_field :stock, placeholder: "在庫数" %></p>
 			<div class="edit-book-submit">
 				<%= f.submit "確定", class: "btn-square-so-pop btn-gray" %>
