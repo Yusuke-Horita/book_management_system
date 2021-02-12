@@ -1,24 +1,13 @@
-# README
+## 書籍管理システム
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+URL : http://54.150.193.101
 
-Things you may want to cover:
+- テストユーザー -
 
-* Ruby version
+- ユーザー
+メールアドレス： test@test
+パスワード： password
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- 管理者
+メールアドレス： admin@admin
+パスワード： password
