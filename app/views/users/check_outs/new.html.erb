@@ -2,20 +2,27 @@
 	<h1>- 書籍コードを入力してください -</h1>
 	<div class="form">
 		<%= form_with model: @cart_item do |f| %>
-			<%= f.text_field :code, autofocus: true, placeholder: "書籍コード" %>
-			<%= f.submit "追加", class: "btn-square-so-pop btn-gray" %>
+		<%= f.text_field :code, autofocus: true, placeholder: "書籍コード" %>
+		<%= f.submit "追加", class: "btn-square-so-pop btn-gray" %>
 		<% end %>
 	</div>
 	<div id="cart-items">
 		<%= render 'cart-items' %>
 	</div>
-	
-	<h1>- 返却日を入力してください -</h1>
+	<%= Time.current.since(7.days).strftime("%Y-%m-%d") %>
+	<h1>- 返却日を入力してください (最大１週間)-</h1>
+		<% if @return_date_error_message %>
+		<div class="errors-section">
+			<ul>
+				<li><%= @return_date_error_message %></li>
+			</ul>
+		</div>
+	<% end %>
 	<div class="form">
 		<%= form_with model: @check_out, local: true do |f| %>
-			<%= f.date_field :return_date %>
-			<div class="check-out-submit">
-				<%= f.submit "貸出", class: "btn-square-so-pop btn-middle btn-orange" %>
+		<%= f.date_field :return_date, value: Time.current.since(7.days).strftime("%Y-%m-%d") %>
+		<div class="check-out-submit">
+			<%= f.submit "貸出", class: "btn-square-so-pop btn-middle btn-orange" %>
 			</div>
 		<% end %>
 	</div>

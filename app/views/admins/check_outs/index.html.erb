@@ -14,6 +14,7 @@
 			</div>
 			<div class="body">
 				<span><%= link_to check_out.created_at.to_s(:datetime_jp), admins_check_out_path(check_out) %></span>
+				<span>返却日：<%= check_out.return_date %></span>
 			</div>
 		</div>
 	</section>

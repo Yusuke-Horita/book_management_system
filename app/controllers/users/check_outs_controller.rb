@@ -12,23 +12,39 @@ class Users::CheckOutsController < ApplicationController
   end
 
   def create
-    @check_out = CheckOut.new(check_out_params)
-    @check_out.user_id = current_user.id
-    if @check_out.save
-      cart_items = CartItem.where(user_id: current_user.id)
-      cart_items.each do |cart_item|
-        check_out_book = CheckOutBook.new
-        check_out_book.check_out_id = @check_out.id
-        check_out_book.book_id = cart_item.book_id
-        check_out_book.save
+    @cart_item = CartItem.new
+    @check_out = CheckOut.new
+    @cart_items = CartItem.where(user_id: current_user.id)
+    if @cart_items.present?
+      if check_out_params[:return_date] < Time.current.strftime("%Y-%m-%d")
+        @return_date_error_message = "過去の日付は指定できません"
+        render "new"
+      elsif check_out_params[:return_date] > Time.current.since(7.days).strftime("%Y-%m-%d")
+        @return_date_error_message = "貸出期間は１週間までです"
+        render "new"
+      else
+        @check_out = CheckOut.new(check_out_params)
+        @check_out.user_id = current_user.id
+        if @check_out.save
+          @cart_items = CartItem.where(user_id: current_user.id)
+          @cart_items.each do |cart_item|
+            check_out_book = CheckOutBook.new
+            check_out_book.check_out_id = @check_out.id
+            check_out_book.book_id = cart_item.book_id
+            check_out_book.save
+          end
+          user = User.find(current_user.id)
+          user.status = true
+          user.save
+          @cart_items.destroy_all
+          redirect_to root_path
+          flash[:notice] = "貸出が完了しました"
+        else
+          render "new"
+        end
       end
-      user = User.find(current_user.id)
-      user.status = true
-      user.save
-      cart_items.destroy_all
-      redirect_to root_path
-      flash[:notice] = "貸出が完了しました"
     else
+      @book_error_message = "書籍を登録してください"
       render "new"
     end
   end
