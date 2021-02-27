@@ -19,7 +19,7 @@ class Admins::BooksController < ApplicationController
         render "new"
       end
     else
-      @exists_error = "コード#{code}は既に使われています。"
+      @exists_error = "コード#{code}はすでに使用されています。"
       render "new"
     end
   end

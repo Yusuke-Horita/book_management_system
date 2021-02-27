@@ -228,8 +228,6 @@ h1 {
 
 .body {
   font-weight: bold;
-  display: flex;
-  justify-content: space-between;
 }
 
 .delete {

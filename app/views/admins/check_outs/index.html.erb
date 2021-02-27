@@ -12,7 +12,7 @@
 			<div class="header">
 				<span><%= link_to check_out.user.name, admins_check_out_path(check_out) %></span>
 			</div>
-			<div class="body">
+			<div class="body" style="display: flex; justify-content: space-between;">
 				<span><%= link_to check_out.created_at.to_s(:datetime_jp), admins_check_out_path(check_out) %></span>
 				<span>返却日：<%= check_out.return_date %></span>
 			</div>
