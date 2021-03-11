@@ -1,10 +1,11 @@
 require 'rails_helper'
 
-describe "貸出のテスト", type: :system do
+describe "貸出・返却のテスト", type: :system do
 	let(:user) { create(:user) }
 	let(:book) { create(:book) }
 	let(:cart_item) { create(:cart_item, user_id: user.id) }
 	let(:check_out) { create(:check_out, user_id: user.id) }
+	let(:check_out2) { create(:check_out, user_id: user.id, status: false)}
 	let(:check_out_book) { create(:check_out_book, check_out_id: check_out.id) }
 	before do
 		visit new_user_session_path
@@ -30,14 +31,13 @@ describe "貸出のテスト", type: :system do
 				expect(page).to have_field "check_out[return_date]"
 			end
 		end
-		describe "書籍コードフォーム" do
+		describe "書籍コードのフォーム" do
 			before do
-
 				visit new_check_out_path
 			end
 			context "フォームの確認", js: true do
 				let(:item) { CartItem.find_by(book_id: book.id) }
-				
+
 				it "追加が成功し、画面に表示される" do
 					fill_in "cart_item[code]", with: book.code
 					click_button "追加"
@@ -67,7 +67,7 @@ describe "貸出のテスト", type: :system do
 				end
 			end
 		end
-		describe "返却日フォーム" do
+		describe "返却日のフォーム" do
 			before do
 				visit new_check_out_path
 			end
@@ -140,6 +140,111 @@ describe "貸出のテスト", type: :system do
 				expect(current_path).to eq "/"
 				expect(page).to have_content "返却が完了しました"
 				expect(page).to have_link "貸出", href: "/check_outs/new"
+			end
+		end
+	end
+	describe "貸出履歴画面" do
+		context "貸出履歴画面への遷移" do
+			it "遷移できる" do
+				visit check_outs_path
+				expect(current_path).to eq "/check_outs"
+			end
+		end
+		context "表示の確認" do
+			before do
+				check_out
+				check_out2
+				visit check_outs_path
+			end
+				it "返却済の貸出の詳細画面リンクの一覧が表示されている" do
+				expect(page).to have_link check_out2.created_at.to_s(:datetime_jp), href: "/check_outs/" + check_out2.id.to_s
+				end
+				it "貸出中の貸出の詳細画面リンクが表示されていない" do
+				expect(page).to_not have_link check_out.created_at.to_s(:datetime_jp), href: "/check_outs/" + check_out.id.to_s
+				end
+		end
+	end
+end
+describe "貸出履歴のテスト", type: :system do
+	describe "会員" do
+		let(:user) { create(:user) }
+		let(:check_out) { create(:check_out, user_id: user.id) }
+		let(:check_out2) { create(:check_out, user_id: user.id, status: false)}
+		let(:check_out_book) { create(:check_out_book, check_out_id: check_out.id) }
+		before do
+			visit new_user_session_path
+			fill_in "user[email]", with: user.email
+			fill_in "user[password]", with: user.password
+			click_button "commit"
+		end
+		describe "貸出履歴画面" do
+			context "貸出履歴画面への遷移" do
+				it "遷移できる" do
+					visit check_outs_path
+					expect(current_path).to eq "/check_outs"
+				end
+			end
+			context "表示の確認" do
+				before do
+					check_out
+					check_out2
+					visit check_outs_path
+				end
+					it "返却済の貸出の詳細画面リンクの一覧が表示されている" do
+					expect(page).to have_link check_out2.created_at.to_s(:datetime_jp), href: "/check_outs/" + check_out2.id.to_s
+					end
+					it "貸出中の貸出の詳細画面リンクが表示されていない" do
+					expect(page).to_not have_link check_out.created_at.to_s(:datetime_jp), href: "/check_outs/" + check_out.id.to_s
+					end
+			end
+		end
+	end
+	describe "管理者" do
+		let(:admin) { create(:admin) }
+		let(:check_out) { create(:check_out) }
+		let(:check_out2) { create(:check_out, status: false) }
+		let(:check_out_book) { create(:check_out_book, check_out_id: check_out.id) }
+		before do
+			visit new_admin_session_path
+			fill_in "admin[email]", with: admin.email
+			fill_in "admin[password]", with: admin.password
+			click_button "commit"
+		end
+		describe "貸出中一覧画面" do
+			context "貸出中一覧画面への遷移" do
+				it "遷移できる" do
+					visit admins_check_outs_path
+					expect(current_path).to eq "/admins/check_outs"
+				end
+			end
+			context "表示の確認(貸出中一覧)" do
+				before do
+					check_out
+					check_out2
+					visit admins_check_outs_path
+				end
+				it "貸出中の貸出の詳細画面リンクが表示されている" do
+					# expect(page).to have_link check_out.created_at.to_s(:datetime_jp), href: "/admins/check_outs/" + check_out.id.to_s
+					expect(page).to have_content check_out.user.name
+				end
+				it "返却済の貸出の詳細画面リンクが表示されていない" do
+					expect(page).to_not have_link check_out2.created_at.to_s(:datetime_jp), href: "/admins/check_outs/" + check_out2.id.to_s
+				end
+			end
+			context "表示の確認(返却済一覧)" do
+				before do
+					check_out
+					check_out2
+					visit admins_check_outs_path
+					select "返却済", from: "sort"
+					click_button "commit"
+				end
+				it "返却済の貸出の詳細画面リンクが表示されている" do
+					expect(page).to have_link check_out2.created_at.to_s(:datetime_jp), href: "/admins/check_outs/" + check_out2.id.to_s
+				end
+				it "貸出中の貸出の詳細画面リンクが表示されていない" do
+					expect(page).to_not have_link check_out.created_at.to_s(:datetime_jp), href: "/admins/check_outs/" + check_out.id.to_s
+				end
 			end
 		end
 	end
